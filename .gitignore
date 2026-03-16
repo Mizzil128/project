@@ -1,0 +1,11 @@
+.vs/
+*.vcxproj.user
+*.vcxproj.filters
+*.CONTRIBUTING.md
+*.suo
+*.user
+Debug/
+Release/
+build/
+*.obj
+*.exe
