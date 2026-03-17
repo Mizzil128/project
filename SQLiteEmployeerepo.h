@@ -20,6 +20,6 @@ namespace CRUD {
 			sqlite3* db_; // Pointer to the SQLite database connection
 			std::string dbPath_; // Path to the SQLite database file
 			void ensureSchema(); // Ensures the database schema is set up correctly (e.g., creates the employees table if it doesn't exist)
-
+			void executeQuery(const std::string& query); // Helper function to execute SQL queries against the SQLite database
 	};
 }
