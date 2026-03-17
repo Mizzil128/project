@@ -7,6 +7,7 @@ Who depends on whom ?
 #include "Employee.h"
 #include <vector>
 #include <string>
+#include <memory>
 
 //Layered CRUD system
 namespace CRUD {
@@ -30,12 +31,13 @@ namespace CRUD {
 	class EmployeeServices {
 		public:
 			EmployeeServices();
-			~EmployeeServices();
 			// Inject repository to share the same storage instance (no ownership).
-			explicit EmployeeServices(IEmployeeRepository*);
-			//~EmployeeServices();
+			explicit EmployeeServices(IEmployeeRepository*, bool takeOwnership);
+			~EmployeeServices() = default; //No need to delete repository here since it's not owned by EmployeeServices when injected, demonstrating proper ownership semantics and avoiding double deletion issues
 		private:
-			IEmployeeRepository* repository;
+			IEmployeeRepository* repository=nullptr;        //EmployeeServices depends on IEmployeeRepository for data management, demonstrating dependency inversion and separation of concerns, allowing EmployeeServices to focus on business logic while delegating data management to the repository
+			std::unique_ptr<IEmployeeRepository> ownedrepository;
+
 		public:
 			void addEmployee(Employee&);
 			Employee getemp(unsigned int id) const;

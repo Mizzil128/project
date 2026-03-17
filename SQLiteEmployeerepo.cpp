@@ -25,13 +25,6 @@ SQLiteEmployeeRepository::~SQLiteEmployeeRepository() {
 	// For demonstration purposes, we'll just print a message instead of actually closing a database connection.
 }
 
-void SQLiteEmployeeRepository::create(const Employee& emp) {
-	// Here we would normally execute an SQL INSERT statement to add the employee data to the SQLite database, using sqlite3_exec or a prepared statement.
-	//std::cout << "\n[SQLiteEmployeeRepository] Creating employee with ID: " << emp.getID() << ", Name: " << emp.getName() << ", Department: " << emp.getDepartment() << ", Salary: " << emp.getSalary() << std::endl;
-	//const char* sql = "INSERT OR REPLACE TO employees(ID, NAME, DEPARTMENT, SALARY) VALUES(?, ?, ?, ?);";
-	// For demonstration purposes, we'll just print a message instead of actually inserting data into a database.
-}
-
 void SQLiteEmployeeRepository::ensureSchema() {
 	// Here we would normally execute an SQL statement to create the employees table if it doesn't already exist, ensuring that the database schema is set up correctly for storing employee data.
 	std::cout << "\n[SQLiteEmployeeRepository] Ensuring database schema is set up correctly (e.g., creating employees table if it doesn't exist).\n";
@@ -40,8 +33,31 @@ void SQLiteEmployeeRepository::ensureSchema() {
 		"NAME TEXT NOT NULL,"
 		"DEPARTMENT TEXT,"
 		"SALARY REAL);";
-	sqlite3_exec(db_, sql, 0, 0, 0);
+	executeQuery(sql);
+
 	// For demonstration purposes, we'll just print a message instead of actually executing SQL statements to manage the database schema.
+}
+
+void SQLiteEmployeeRepository::executeQuery(const std::string& query) {
+	// Here we would normally execute the provided SQL query against the SQLite database using sqlite3_exec or a prepared statement, and handle any errors that may occur during query execution.
+	std::cout << "\n[SQLiteEmployeeRepository] Executing SQL query: " << query << std::endl;
+	char* errMsg = nullptr;
+	int result = sqlite3_exec(db_, query.c_str(), 0, nullptr, &errMsg);
+	if(result != SQLITE_OK) {
+		std::cerr << "SQL error: " << errMsg << std::endl;
+		sqlite3_free(errMsg);
+		throw std::runtime_error("Failed to execute SQL query");
+	}
+	// For demonstration purposes, we'll just print a message instead of actually executing SQL queries against a database.
+}
+
+void SQLiteEmployeeRepository::create(const Employee& emp) {
+	// Here we would normally execute an SQL INSERT statement to add the employee data to the SQLite database, using sqlite3_exec or a prepared statement.
+	std::cout << "\n[SQLiteEmployeeRepository] Creating employee with ID: " << emp.getID() << ", Name: " << emp.getName() << ", Department: " << emp.getDepartment() << ", Salary: " << emp.getSalary() << std::endl;
+
+	const std::string sql = "INSERT OR REPLACE INTO EMPLOYEE(ID, NAME, DEPARTMENT, SALARY) VALUES( " + std::to_string(emp.getID()) + ", '" + emp.getName() + "', '" + emp.getDepartment() + "', " + std::to_string(emp.getSalary()) + ");";
+	executeQuery(sql);
+
 }
 
 Employee SQLiteEmployeeRepository::getByID(unsigned int id) const {

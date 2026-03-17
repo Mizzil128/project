@@ -68,26 +68,28 @@ std::vector<CRUD::Employee> CRUD::EmployeeRepository::getAll() const {
 		return employees;
 }
 
-CRUD::EmployeeServices::EmployeeServices() {
+CRUD::EmployeeServices::EmployeeServices() :ownedrepository(std::make_unique<SQLiteEmployeeRepository>("Employees.db")), repository(ownedrepository.get()) {
 	std::cout << "\n[EMPLOYEE SERVICES] Initializing Employee Services...\n";
-	repository = new EmployeeRepository();        //EmployeeServices creates its own instance of EmployeeRepository to manage employee data, demonstrating composition and encapsulation
-	repository = new SQLiteEmployeeRepository("Employees.db");    // EmployeeServices can also use a different repository implementation (e.g., SQLiteEmployeeRepository) to manage employee data, demonstrating flexibility and the ability to switch between different data storage mechanisms without changing the EmployeeServices class, adhering to the Open/Closed Principle
+	//repository = new EmployeeRepository();        //EmployeeServices creates its own instance of EmployeeRepository to manage employee data, demonstrating composition and encapsulation
+	//repository = new SQLiteEmployeeRepository("Employees.db");    // EmployeeServices can also use a different repository implementation (e.g., SQLiteEmployeeRepository) to manage employee data, demonstrating flexibility and the ability to switch between different data storage mechanisms without changing the EmployeeServices class, adhering to the Open/Closed Principle
 }
 
+/*
 CRUD::EmployeeServices::~EmployeeServices() {
 	std::cout << "\n[EMPLOYEE SERVICES] Cleaning up Employee Services...\n";
 	delete repository;        //EmployeeServices is responsible for cleaning up its own resources, ensuring proper memory management and preventing leaks
 }
+*/
 
-CRUD::EmployeeServices::EmployeeServices(IEmployeeRepository* repo) {
+CRUD::EmployeeServices::EmployeeServices(IEmployeeRepository* repo, bool takeOwnership=false) {
 	std::cout << "\n[EMPLOYEE SERVICES] Initializing Employee Services with provided repository(Decpendency Injection)...\n";
-	repository = repo;       //EmployeeServices can also accept an external repository instance, allowing for flexibility and dependency injection, which promotes loose coupling and easier testing
+	if(takeOwnership) {
+		ownedrepository.reset(repo);        //If EmployeeServices takes ownership of the provided repository, it will manage its lifetime and ensure proper cleanup when EmployeeServices is destroyed, demonstrating proper ownership semantics and resource management
+	}else {
+		repository = repo;        //If EmployeeServices does not take ownership of the provided repository, it will simply use the provided instance without managing its lifetime, allowing for greater flexibility and separation of concerns, as the caller is responsible for managing the repository's lifetime
+	}
+	//repository = repo;       //EmployeeServices can also accept an external repository instance, allowing for flexibility and dependency injection, which promotes loose coupling and easier testing
 }
-
-//CRUD::EmployeeServices::~EmployeeServices() {
-//	std::cout << "\n[EMPLOYEE SERVICES] Cleaning up Employee Services...\n";
-	 //No need to delete repository here since it's not owned by EmployeeServices when injected, demonstrating proper ownership semantics and avoiding double deletion issues
-//}
 
 void CRUD::EmployeeServices::addEmployee(Employee& emp) {
 	repository->create(emp);
