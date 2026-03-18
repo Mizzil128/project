@@ -1,6 +1,7 @@
 #include "Header1.h"
 #include "Win32Rendering.h"
 #include <Windows.h>
+#include <crtdbg.h>
 #include <iostream>
 
 int main() {
@@ -10,5 +11,6 @@ int main() {
 	app.run();
 	//wr.run();
 	std::cout << "CRUD\n";
+	_CrtDumpMemoryLeaks();
 	return 0;
 }
