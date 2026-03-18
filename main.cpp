@@ -2,6 +2,13 @@
 #include "Win32Rendering.h"
 #include <Windows.h>
 #include <crtdbg.h>
+/*
+#ifdef _MSC_VER
+#  if __has_include(<vld.h>)
+#    include <vld.h>
+#  endif
+#endif
+*/
 #include <iostream>
 
 int main() {
