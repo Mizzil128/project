@@ -38,28 +38,6 @@ void SQLiteEmployeeRepository::ensureSchema() {
 	// For demonstration purposes, we'll just print a message instead of actually executing SQL statements to manage the database schema.
 }
 
-void SQLiteEmployeeRepository::executeQuery(const std::string& query) {
-	// Here we would normally execute the provided SQL query against the SQLite database using sqlite3_exec or a prepared statement, and handle any errors that may occur during query execution.
-	std::cout << "\n[SQLiteEmployeeRepository] Executing SQL query: " << query << std::endl;
-	char* errMsg = nullptr;
-	int result = sqlite3_exec(db_, query.c_str(), 0, nullptr, &errMsg);
-	if(result != SQLITE_OK) {
-		std::cerr << "SQL error: " << errMsg << std::endl;
-		sqlite3_free(errMsg);
-		throw std::runtime_error("Failed to execute SQL query");
-	}
-	// For demonstration purposes, we'll just print a message instead of actually executing SQL queries against a database.
-}
-
-void SQLiteEmployeeRepository::create(const Employee& emp) {
-	// Here we would normally execute an SQL INSERT statement to add the employee data to the SQLite database, using sqlite3_exec or a prepared statement.
-	std::cout << "\n[SQLiteEmployeeRepository] Creating employee with ID: " << emp.getID() << ", Name: " << emp.getName() << ", Department: " << emp.getDepartment() << ", Salary: " << emp.getSalary() << std::endl;
-
-	const std::string sql = "INSERT OR REPLACE INTO EMPLOYEE(ID, NAME, DEPARTMENT, SALARY) VALUES( " + std::to_string(emp.getID()) + ", '" + emp.getName() + "', '" + emp.getDepartment() + "', " + std::to_string(emp.getSalary()) + ");";
-	executeQuery(sql);
-
-}
-
 Employee SQLiteEmployeeRepository::getByID(unsigned int id) const {
 	// Here we would normally execute an SQL SELECT statement to retrieve the employee data with the specified ID from the SQLite database, and then construct and return an Employee object based on the retrieved data.
 	//std::cout << "\n[SQLiteEmployeeRepository] Retrieving employee with ID: " << id << std::endl;
