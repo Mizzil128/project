@@ -10,3 +10,4 @@ build/
 *.obj
 *.exe
 /noticethings.txt
+/SQLiteEmployeerepo.cpp
