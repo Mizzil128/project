@@ -55,11 +55,7 @@ void SQLiteEmployeeRepository::create(const Employee& emp) {
 	// Here we would normally execute an SQL INSERT statement to add the employee data to the SQLite database, using sqlite3_exec or a prepared statement.
 	std::cout << "\n[SQLiteEmployeeRepository] Creating employee with ID: " << emp.getID() << ", Name: " << emp.getName() << ", Department: " << emp.getDepartment() << ", Salary: " << emp.getSalary() << std::endl;
 
-<<<<<<< HEAD
 	const std::string sql = "INSERT OR REPLACE INTO EMPLOYEE(ID, NAME, DEPARTMENT, SALARY) VALUES( " + std::to_string(emp.getID()) + ", '" + emp.getName() + "', '" + emp.getDepartment() + "', " + std::to_string(emp.getSalary()) + ");";
-=======
-	const std::string sql = "INSERT OR REPLACE TO employees(ID, NAME, DEPARTMENT, SALARY) VALUES( " + std::to_string(emp.getID()) + emp.getName() + "," + emp.getDepartment() + "," + std::to_string(emp.getSalary()) + ");";
->>>>>>> bbee2e3557a18549b9decf89f7006f6caa0e9849
 	executeQuery(sql);
 
 }
