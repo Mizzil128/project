@@ -1,7 +1,8 @@
 #include "SQLiteEmployeerepo.h"
 #include <iostream>
 #include <stdexcept>
-#include <sqlite3.h>
+//#include <string>
+//#include <sqlite3.h>
 
 using namespace CRUD;
 

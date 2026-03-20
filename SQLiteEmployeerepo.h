@@ -7,6 +7,8 @@
 struct sqlite3; // Forward declaration of sqlite3 struct to avoid including the entire sqlite3.h header in this header file, which can help reduce compilation dependencies and improve build times.
 
 namespace CRUD {
+	//class Employee;
+	//class IEmployeeRepository;
 	class SQLiteEmployeeRepository : public IEmployeeRepository {
 		public:
 			//dbPath: filesystem path to the SQLite database file, which allows the repository to connect to the database and perform CRUD operations on employee data stored in that database.

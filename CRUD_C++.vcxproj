@@ -125,6 +125,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Application.cpp" />
     <ClCompile Include="D:\Downloads\sqlite3projects\sqlite-amalgamation-3490100\sqinclude\sqlite3.c" />
     <ClCompile Include="Employee.cpp" />
     <ClCompile Include="main.cpp" />
@@ -132,6 +133,7 @@
     <ClCompile Include="Win32Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Application.h" />
     <ClInclude Include="D:\Downloads\sqlite3projects\sqlite-amalgamation-3490100\sqinclude\sqlite3.h" />
     <ClInclude Include="Employee.h" />
     <ClInclude Include="Header1.h" />

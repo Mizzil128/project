@@ -1,5 +1,6 @@
 #include "Header1.h"
 #include "Win32Rendering.h"
+#include "Application.h"
 #include <Windows.h>
 #include <crtdbg.h>
 /*
